@@ -19,6 +19,10 @@ A working Rust workspace (`cargo build --workspace`, `cargo test --workspace`, `
 
 `schemas/` holds hand-maintained JSON Schema for `kakashi-core`'s wire types, validated against real captured CLI output (see `schemas/README.md` for what's covered and what isn't). `fixtures/` holds one real worked example of the current boundary-probe corpus format (see `fixtures/README.md` — this is not the full §24 fixture corpus, which isn't implemented). `tests/` explains why crate-level tests, not a root `tests/` directory, are where `cargo test --workspace` actually finds things (see `tests/README.md`).
 
+### The "Copycat Ninja" theme
+
+`--format human` output (never `--format json` — see `crates/kakashi-cli/src/theme.rs`'s module doc comment) is styled after Kakashi Hatake: Konoha-leaf green for a confirmed copy, Sharingan red for one that doesn't match, hitai-ate steel for plain information, plus a small banner on `kakashi status` and a braille spinner (`kakashi observe`/`probe`/`characterise`/`replicate`) while waiting on a sandboxed process. It's powered by `form3` — vendored into this workspace as `crates/form3` (a dependency-free ANSI styling/table/animation crate checked out at `~/3form` on this machine; see `crates/form3/README.md` for why it's vendored rather than a path dependency). Colors respect `NO_COLOR`, `TERM=dumb`, and drop out entirely when stdout isn't a terminal — piping any command's human output to a file or `less` gets plain text, exactly as before this feature existed.
+
 Try it against a real sibling project:
 
 ```bash

@@ -1,0 +1,11 @@
+# Copyright (c) 2026 sal
+# SPDX-License-Identifier: MIT
+[package]
+name = "form3"
+version = "0.1.0"
+edition = "2021"
+description = "Dependency-free ANSI terminal styling, tables, and animation primitives"
+license = "MIT"
+publish = false
+
+[dependencies]

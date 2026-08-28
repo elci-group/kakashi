@@ -11,6 +11,7 @@ members = [
     "crates/kakashi-converge",
     "crates/kakashi-elci",
     "crates/kakashi-sandbox",
+    "crates/form3",
 ]
 
 [workspace.package]
@@ -37,3 +38,4 @@ which = "6"
 uuid = { version = "1", features = ["v4", "serde"] }
 tempfile = "3"
 libc = "0.2"
+form3 = { path = "crates/form3" }

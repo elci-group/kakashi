@@ -154,11 +154,10 @@ pub fn characterise(
                 allowed_env: default_allowed_env(),
                 ..kakashi_sandbox::ExecutionPolicy::new(std::env::current_dir()?)
             };
-            let report = kakashi_sandbox::run_confined(
-                resolved.to_str().unwrap(),
-                &["--help".to_string()],
-                &policy,
-            )?;
+            let program_str = resolved.to_str().unwrap().to_string();
+            let report = crate::theme::spin_while("characterising", move || {
+                kakashi_sandbox::run_confined(&program_str, &["--help".to_string()], &policy)
+            })?;
             Some(kakashi_probe::extract_cli_surface(&report.stdout))
         }
     };
@@ -215,13 +214,18 @@ pub fn observe(
         watch_dir: watch_dir.map(PathBuf::from),
         ..kakashi_sandbox::ExecutionPolicy::new(std::env::current_dir()?)
     };
-    let report = kakashi_sandbox::run_confined(resolved.to_str().unwrap(), &args, &policy)?;
+    let program_str = resolved.to_str().unwrap().to_string();
+    let spin_args = args.clone();
+    let spin_policy = policy.clone();
+    let report = crate::theme::spin_while("observing", move || {
+        kakashi_sandbox::run_confined(&program_str, &spin_args, &spin_policy)
+    })?;
 
     let experiment = Experiment {
         id: kakashi_core::new_id(),
         label: label.unwrap_or_else(|| "manual_observe".to_string()),
         program: resolved.display().to_string(),
-        args: args.clone(),
+        args,
         policy,
         report: report.clone(),
     };
@@ -246,8 +250,14 @@ pub fn observe(
 
     emit(format, &experiment, |e| {
         println!("experiment id:   {}", e.id);
-        println!("exit code:       {:?}", e.report.exit_code);
-        println!("timed out:       {}", e.report.timed_out);
+        println!(
+            "exit code:       {}",
+            crate::theme::exit_code_label(e.report.exit_code)
+        );
+        println!(
+            "timed out:       {}",
+            crate::theme::bool_label(e.report.timed_out)
+        );
         println!("duration_ms:     {}", e.report.duration_ms);
         println!("stdout:\n{}", truncate(&e.report.stdout, 2000));
         if !e.report.stderr.is_empty() {
@@ -329,7 +339,11 @@ pub fn probe(state: &str, program: &str, timeout_secs: u64, format: OutputFormat
         ..kakashi_sandbox::ExecutionPolicy::new(std::env::current_dir()?)
     };
     let probes = kakashi_probe::boundary_probes();
-    let results = kakashi_probe::run_probes(resolved.to_str().unwrap(), &probes, &policy);
+    let program_str = resolved.to_str().unwrap().to_string();
+    let spin_policy = policy.clone();
+    let results = crate::theme::spin_while("probing", move || {
+        kakashi_probe::run_probes(&program_str, &probes, &spin_policy)
+    });
 
     let mut experiment_ids = Vec::new();
     for result in &results {
@@ -367,18 +381,17 @@ pub fn probe(state: &str, program: &str, timeout_secs: u64, format: OutputFormat
 
     emit(format, &results, |results: &Vec<ProbeResult>| {
         println!("boundary probe corpus: {corpus_name}");
+        let mut table = form3::table::Table::new();
+        table.set_header(vec!["Probe", "Exit", "Timed out", "Duration (ms)"]);
         for r in results {
-            println!(
-                "  {:<18} exit={:<6} timed_out={:<5} dur_ms={}",
-                r.probe.label,
-                r.report
-                    .exit_code
-                    .map(|c| c.to_string())
-                    .unwrap_or_else(|| "none".into()),
-                r.report.timed_out,
-                r.report.duration_ms,
-            );
+            table.add_row(vec![
+                r.probe.label.clone(),
+                crate::theme::exit_code_label(r.report.exit_code).to_string(),
+                crate::theme::bool_label(r.report.timed_out).to_string(),
+                r.report.duration_ms.to_string(),
+            ]);
         }
+        print!("{table}");
         println!("(use --reference-corpus/--replica-corpus {corpus_name} with `kakashi validate`)");
     });
     Ok(())
@@ -442,14 +455,17 @@ pub fn model(state: &str, path: &str, format: OutputFormat) -> Result<()> {
     emit(format, &model, |m| {
         println!("target: {}  files: {}", m.target, m.discovery.file_count);
         println!("ELCI adapters:");
+        let mut table = form3::table::Table::new();
+        table.set_header(vec!["Adapter", "Status", "Kind", "Detail"]);
         for a in &m.elci_adapters {
-            let status = if a.available {
-                "AVAILABLE"
-            } else {
-                "CAPABILITY_UNAVAILABLE"
-            };
-            println!("  {:<12} {:<9} [{}] {}", a.name, status, a.kind, a.detail);
+            table.add_row(vec![
+                a.name.clone(),
+                crate::theme::adapter_status_label(a.available).to_string(),
+                a.kind.clone(),
+                a.detail.clone(),
+            ]);
         }
+        print!("{table}");
     });
     Ok(())
 }
@@ -476,14 +492,15 @@ pub fn replicate(
                 allowed_env: default_allowed_env(),
                 ..kakashi_sandbox::ExecutionPolicy::new(std::env::current_dir()?)
             };
-            let help = kakashi_sandbox::run_confined(
-                resolved.to_str().unwrap(),
-                &["--help".to_string()],
-                &policy,
-            )?;
-            let surface = kakashi_probe::extract_cli_surface(&help.stdout);
-            let probes = kakashi_probe::boundary_probes();
-            let results = kakashi_probe::run_probes(resolved.to_str().unwrap(), &probes, &policy);
+            let program_str = resolved.to_str().unwrap().to_string();
+            let (surface, results) = crate::theme::spin_while("replicating", move || {
+                let help =
+                    kakashi_sandbox::run_confined(&program_str, &["--help".to_string()], &policy)?;
+                let surface = kakashi_probe::extract_cli_surface(&help.stdout);
+                let probes = kakashi_probe::boundary_probes();
+                let results = kakashi_probe::run_probes(&program_str, &probes, &policy);
+                Ok::<_, anyhow::Error>((surface, results))
+            })?;
             (Some(surface), results)
         }
     };
@@ -555,7 +572,11 @@ pub fn diff(state: &str, reference: &str, replica: &str, format: OutputFormat) -
             println!("no structural differences detected");
         }
         for d in diffs {
-            println!("[{:?}] {}", d.severity, d.description);
+            println!(
+                "[{}] {}",
+                crate::theme::severity_label(d.severity),
+                d.description
+            );
         }
     });
     Ok(())
@@ -672,19 +693,28 @@ pub fn validate(
     store.record(&evidence)?;
 
     emit(format, &report, |r| {
-        println!("Equivalence:");
+        let mut table = form3::table::Table::new();
+        table.set_header(vec!["Dimension", "Score"]);
         for (dim, score) in &r.scores.scores {
-            match score {
-                Some(s) => println!("  {dim:<15} {s:.2}"),
-                None => println!("  {dim:<15} N/A"),
-            }
+            let cell = match score {
+                Some(s) => format!("{s:.2}"),
+                None => "N/A".to_string(),
+            };
+            table.add_row(vec![dim.clone(), cell]);
         }
-        match r.scores.composite() {
-            Some(c) => println!("  {:<15} {c:.2}", "Overall"),
-            None => println!("  {:<15} N/A", "Overall"),
-        }
-        println!("Gate            {}", if r.gate { "PASS" } else { "FAIL" });
-        println!("Disposition     {}", r.disposition);
+        let overall = match r.scores.composite() {
+            Some(c) => format!("{c:.2}"),
+            None => "N/A".to_string(),
+        };
+        table.add_row(vec!["Overall".to_string(), overall]);
+        print!("{table}");
+
+        println!("Gate            {}", crate::theme::gate_label(r.gate));
+        println!(
+            "Disposition     {}",
+            crate::theme::disposition_label(&r.disposition)
+        );
+        println!("  {}", crate::theme::disposition_tagline(&r.disposition));
         if !r.structural_differences.is_empty() {
             println!("Structural differences: {}", r.structural_differences.len());
         }
@@ -774,7 +804,11 @@ pub fn converge(
                 .unwrap_or_else(|| "N/A".into())
         );
         println!("regressions:  {}", e.regressions);
-        println!("decision:     {:?}", e.decision);
+        let accepted = e.decision == kakashi_converge::Decision::Accept;
+        println!(
+            "decision:     {}",
+            crate::theme::decision_label(&format!("{:?}", e.decision), accepted)
+        );
         if e.decision == kakashi_converge::Decision::Rollback {
             println!("(convergence budget not exhausted, but this iteration did not improve — see §39 monotonic progress requirement)");
         }
@@ -824,7 +858,7 @@ pub fn report(state: &str, _id: Option<String>, format: OutputFormat) -> Result<
         println!("experiments:     {}", s["experiment_count"]);
         println!(
             "disposition:     {}",
-            s["disposition"].as_str().unwrap_or("?")
+            crate::theme::disposition_label(s["disposition"].as_str().unwrap_or("?"))
         );
         println!("(disposition is INCONCLUSIVE by default in this build — run `kakashi validate` and wire its result in for a real gate)");
     });
@@ -951,6 +985,7 @@ pub fn status(state: &str, format: OutputFormat) -> Result<()> {
     });
 
     emit(format, &summary, |s| {
+        println!("{}", crate::theme::banner());
         println!("state dir:       {}", store.root().display());
         if let Some(m) = s.get("manifest").filter(|m| !m.is_null()) {
             println!("target:          {}", m["target"]);
@@ -960,15 +995,17 @@ pub fn status(state: &str, format: OutputFormat) -> Result<()> {
         println!("evidence rows:   {}", s["evidence_count"]);
         println!("experiments:     {}", s["experiment_count"]);
         println!("models:          {}", s["model_count"]);
-        println!("ELCI adapters:");
+        println!("ELCI adapters (known jutsu):");
+        let mut table = form3::table::Table::new();
+        table.set_header(vec!["Adapter", "Status", "Kind"]);
         for a in &adapters {
-            let tag = if a.available {
-                "AVAILABLE"
-            } else {
-                "CAPABILITY_UNAVAILABLE"
-            };
-            println!("  {:<12} {}", a.name, tag);
+            table.add_row(vec![
+                a.name.clone(),
+                crate::theme::adapter_status_label(a.available).to_string(),
+                a.kind.clone(),
+            ]);
         }
+        print!("{table}");
     });
     Ok(())
 }

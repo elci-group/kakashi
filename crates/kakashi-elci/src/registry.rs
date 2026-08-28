@@ -119,10 +119,19 @@ pub fn descriptors() -> Vec<ComponentDescriptor> {
         },
         ComponentDescriptor {
             name: "3form",
-            kind: Binary,
+            // The `~/3form` checkout is the `form3` library crate (ANSI
+            // styling/tables/animation, no `[[bin]]` target) — previously
+            // misclassified as `Binary` here. It's vendored directly into
+            // this workspace as `crates/form3` and powers `kakashi-cli`'s
+            // human-output theme (see `crates/form3/README.md`), so this
+            // descriptor now correctly reports it as a present library
+            // rather than searching for a nonexistent binary. Any `3form`
+            // executable found on `PATH` is unrelated to this crate.
+            kind: Library,
             sibling_dir: "3form",
-            bin_name: Some("3form"),
-            role: "output normalisation (§17)",
+            bin_name: None,
+            role:
+                "output normalisation (§17) — vendored as crates/form3, powers kakashi-cli's theme",
         },
         ComponentDescriptor {
             name: "matron",

@@ -1,6 +1,7 @@
 mod commands;
 mod experiment;
 mod output;
+mod theme;
 
 use clap::{Parser, Subcommand};
 use output::OutputFormat;
