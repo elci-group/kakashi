@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://elci-group/kakashi/schemas/evidence_envelope.schema.json",
+  "title": "EvidenceEnvelope",
+  "description": "The common ELCI evidence envelope (docs/ARCHITECTURE.md §21), with Kakashi's extensions. Hand-maintained from crates/kakashi-core/src/envelope.rs — keep in sync with that file, not the other way around.",
+  "type": "object",
+  "required": [
+    "id",
+    "subject",
+    "source",
+    "timestamp",
+    "evidence",
+    "confidence",
+    "severity",
+    "provenance"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "subject": { "type": "string" },
+    "source": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "evidence": {},
+    "confidence": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "severity": { "$ref": "severity.schema.json" },
+    "measurements": {},
+    "relationships": { "type": "array", "items": { "type": "string" } },
+    "proposed_actions": { "type": "array", "items": { "type": "string" } },
+    "provenance": { "type": "string" },
+    "reference_id": { "type": ["string", "null"] },
+    "replica_id": { "type": ["string", "null"] },
+    "experiment_id": { "type": ["string", "null"] },
+    "equivalence_dimension": { "type": ["string", "null"] },
+    "observation_method": { "type": ["string", "null"] },
+    "comparison_method": { "type": ["string", "null"] },
+    "environment_fingerprint": { "type": ["string", "null"] },
+    "input_fingerprint": { "type": ["string", "null"] },
+    "output_fingerprint": { "type": ["string", "null"] }
+  },
+  "additionalProperties": false
+}

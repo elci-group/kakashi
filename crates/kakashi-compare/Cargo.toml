@@ -1,0 +1,18 @@
+[package]
+name = "kakashi-compare"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+kakashi-core = { path = "../kakashi-core" }
+kakashi-observe = { path = "../kakashi-observe" }
+kakashi-probe = { path = "../kakashi-probe" }
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+walkdir.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true

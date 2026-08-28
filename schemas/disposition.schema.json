@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://elci-group/kakashi/schemas/disposition.schema.json",
+  "title": "Disposition",
+  "description": "Final disposition of a replication attempt (docs/ARCHITECTURE.md §41). `EQUIVALENT` may only be reported when every mandatory dimension's gate passed. From crates/kakashi-core/src/disposition.rs — the Display impl and the serde wire format are tested to agree (see the `display_matches_serde_wire_format` test in that file).",
+  "type": "string",
+  "enum": [
+    "EQUIVALENT",
+    "CONDITIONALLY_EQUIVALENT",
+    "PARTIALLY_EQUIVALENT",
+    "NON_EQUIVALENT",
+    "INCONCLUSIVE",
+    "BLOCKED"
+  ]
+}

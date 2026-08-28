@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://elci-group/kakashi/schemas/severity.schema.json",
+  "title": "Severity",
+  "description": "Severity of an observation or a detected difference (docs/ARCHITECTURE.md §10, §25). From crates/kakashi-core/src/envelope.rs.",
+  "type": "string",
+  "enum": ["informational", "low", "high", "critical"]
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://elci-group/kakashi/schemas/difference.schema.json",
+  "title": "Difference",
+  "description": "A single structured difference between reference and replica observations (docs/ARCHITECTURE.md §25) — never a bare pass/fail. From crates/kakashi-core/src/envelope.rs.",
+  "type": "object",
+  "required": [
+    "id",
+    "dimension",
+    "description",
+    "reference_value",
+    "replica_value",
+    "severity",
+    "confidence"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "dimension": { "type": "string" },
+    "description": { "type": "string" },
+    "reference_value": {},
+    "replica_value": {},
+    "severity": { "$ref": "severity.schema.json" },
+    "confidence": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+  },
+  "additionalProperties": false
+}

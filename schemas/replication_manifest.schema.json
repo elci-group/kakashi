@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://elci-group/kakashi/schemas/replication_manifest.schema.json",
+  "title": "ReplicationManifest",
+  "description": "Everything needed to reproduce a replication attempt (docs/ARCHITECTURE.md §32). From crates/kakashi-core/src/manifest.rs. Note this is a partial implementation of §32's full field list: tool_versions/ELCI_versions, equivalence_policy, execution_policy, and test_corpus are not yet all populated — see README.md 'what's still directive'.",
+  "type": "object",
+  "required": [
+    "id",
+    "created_at",
+    "target",
+    "source_location",
+    "environment",
+    "dependencies",
+    "tool_versions",
+    "equivalence_dimensions",
+    "random_seed"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "target": { "type": "string" },
+    "target_version": { "type": ["string", "null"] },
+    "reference_hash": { "type": ["string", "null"] },
+    "source_location": { "type": "string" },
+    "environment": {
+      "type": "object",
+      "required": ["os", "arch", "family", "num_cpus"],
+      "properties": {
+        "os": { "type": "string" },
+        "arch": { "type": "string" },
+        "family": { "type": "string" },
+        "num_cpus": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "dependencies": { "type": "array", "items": { "type": "string" } },
+    "tool_versions": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "equivalence_dimensions": { "type": "array", "items": { "type": "string" } },
+    "random_seed": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": false
+}

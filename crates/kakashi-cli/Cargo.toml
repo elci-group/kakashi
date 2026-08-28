@@ -1,0 +1,31 @@
+[package]
+name = "kakashi-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "kakashi"
+path = "src/main.rs"
+
+[dependencies]
+kakashi-core = { path = "../kakashi-core" }
+kakashi-evidence = { path = "../kakashi-evidence" }
+kakashi-observe = { path = "../kakashi-observe" }
+kakashi-probe = { path = "../kakashi-probe" }
+kakashi-compare = { path = "../kakashi-compare" }
+kakashi-replicate = { path = "../kakashi-replicate" }
+kakashi-converge = { path = "../kakashi-converge" }
+kakashi-elci = { path = "../kakashi-elci" }
+kakashi-sandbox = { path = "../kakashi-sandbox" }
+serde.workspace = true
+serde_json.workspace = true
+clap.workspace = true
+anyhow.workspace = true
+chrono.workspace = true
+walkdir.workspace = true
+which.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true

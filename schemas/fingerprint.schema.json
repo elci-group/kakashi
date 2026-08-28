@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://elci-group/kakashi/schemas/fingerprint.schema.json",
+  "title": "Fingerprint",
+  "description": "Domain-specific hashes for one characterised system (docs/ARCHITECTURE.md §22). A `null` hash means 'not computed', never 'empty'. From crates/kakashi-core/src/fingerprint.rs. Only source_sha/dependency_sha/config_sha/environment_sha are populated by this build (kakashi-observe); interface_sha/behaviour_sha/binary_sha are always null today (§22 not yet fully implemented).",
+  "type": "object",
+  "required": ["target", "computed_at"],
+  "properties": {
+    "target": { "type": "string" },
+    "computed_at": { "type": "string", "format": "date-time" },
+    "source_sha": { "type": ["string", "null"] },
+    "dependency_sha": { "type": ["string", "null"] },
+    "interface_sha": { "type": ["string", "null"] },
+    "config_sha": { "type": ["string", "null"] },
+    "behaviour_sha": { "type": ["string", "null"] },
+    "binary_sha": { "type": ["string", "null"] },
+    "environment_sha": { "type": ["string", "null"] }
+  },
+  "additionalProperties": false
+}

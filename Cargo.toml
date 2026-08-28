@@ -1,0 +1,39 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/kakashi-cli",
+    "crates/kakashi-core",
+    "crates/kakashi-evidence",
+    "crates/kakashi-observe",
+    "crates/kakashi-probe",
+    "crates/kakashi-compare",
+    "crates/kakashi-replicate",
+    "crates/kakashi-converge",
+    "crates/kakashi-elci",
+    "crates/kakashi-sandbox",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "UNLICENSED"
+# Internal ELCI tooling, not published to crates.io — lets `cargo deny`'s
+# `licenses.private.ignore` skip license checks on our own crates instead
+# of rejecting "UNLICENSED" as an invalid SPDX expression.
+publish = false
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+anyhow = "1"
+thiserror = "2"
+clap = { version = "4", features = ["derive"] }
+chrono = { version = "0.4", features = ["serde"] }
+walkdir = "2"
+sha2 = "0.10"
+hex = "0.4"
+which = "6"
+uuid = { version = "1", features = ["v4", "serde"] }
+tempfile = "3"
+libc = "0.2"

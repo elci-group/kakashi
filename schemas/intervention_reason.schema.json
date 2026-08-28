@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://elci-group/kakashi/schemas/intervention_reason.schema.json",
+  "title": "InterventionReason",
+  "description": "Human intervention is a first-class state, not an error path (docs/ARCHITECTURE.md §46). From crates/kakashi-core/src/intervention.rs.",
+  "type": "string",
+  "enum": [
+    "AMBIGUOUS_REFERENCE",
+    "UNSAFE_EXECUTION",
+    "CONFLICTING_EVIDENCE",
+    "LOW_CONFIDENCE",
+    "NONDETERMINISTIC_BEHAVIOUR",
+    "IRREDUCIBLE_DIFFERENCE",
+    "INTERVENTION_REQUIRED"
+  ]
+}

@@ -1,0 +1,159 @@
+[
+  {
+    "probe": {
+      "label": "no_args",
+      "args": []
+    },
+    "report": {
+      "program": "/bin/true",
+      "args": [],
+      "stdout": "",
+      "stderr": "",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 20,
+      "filesystem_delta": null,
+      "policy_caveats": [
+        "network_access=false is declared but not enforced by this build (no namespace/firewall isolation available)"
+      ]
+    }
+  },
+  {
+    "probe": {
+      "label": "help",
+      "args": [
+        "--help"
+      ]
+    },
+    "report": {
+      "program": "/bin/true",
+      "args": [
+        "--help"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 20,
+      "filesystem_delta": null,
+      "policy_caveats": [
+        "network_access=false is declared but not enforced by this build (no namespace/firewall isolation available)"
+      ]
+    }
+  },
+  {
+    "probe": {
+      "label": "version",
+      "args": [
+        "--version"
+      ]
+    },
+    "report": {
+      "program": "/bin/true",
+      "args": [
+        "--version"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 21,
+      "filesystem_delta": null,
+      "policy_caveats": [
+        "network_access=false is declared but not enforced by this build (no namespace/firewall isolation available)"
+      ]
+    }
+  },
+  {
+    "probe": {
+      "label": "unknown_flag",
+      "args": [
+        "--kakashi-does-not-recognise-this-flag"
+      ]
+    },
+    "report": {
+      "program": "/bin/true",
+      "args": [
+        "--kakashi-does-not-recognise-this-flag"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 21,
+      "filesystem_delta": null,
+      "policy_caveats": [
+        "network_access=false is declared but not enforced by this build (no namespace/firewall isolation available)"
+      ]
+    }
+  },
+  {
+    "probe": {
+      "label": "empty_arg",
+      "args": [
+        ""
+      ]
+    },
+    "report": {
+      "program": "/bin/true",
+      "args": [
+        ""
+      ],
+      "stdout": "",
+      "stderr": "",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 21,
+      "filesystem_delta": null,
+      "policy_caveats": [
+        "network_access=false is declared but not enforced by this build (no namespace/firewall isolation available)"
+      ]
+    }
+  },
+  {
+    "probe": {
+      "label": "oversized_arg",
+      "args": [
+        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...[truncated for this fixture file; kakashi itself sends the full 65536 bytes]"
+      ]
+    },
+    "report": {
+      "program": "/bin/true",
+      "args": [
+        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...[truncated for this fixture file; kakashi itself sends the full 65536 bytes]"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 21,
+      "filesystem_delta": null,
+      "policy_caveats": [
+        "network_access=false is declared but not enforced by this build (no namespace/firewall isolation available)"
+      ]
+    }
+  },
+  {
+    "probe": {
+      "label": "nonexistent_path",
+      "args": [
+        "/nonexistent/kakashi-probe-path-does-not-exist"
+      ]
+    },
+    "report": {
+      "program": "/bin/true",
+      "args": [
+        "/nonexistent/kakashi-probe-path-does-not-exist"
+      ],
+      "stdout": "",
+      "stderr": "",
+      "exit_code": 0,
+      "timed_out": false,
+      "duration_ms": 21,
+      "filesystem_delta": null,
+      "policy_caveats": [
+        "network_access=false is declared but not enforced by this build (no namespace/firewall isolation available)"
+      ]
+    }
+  }
+]

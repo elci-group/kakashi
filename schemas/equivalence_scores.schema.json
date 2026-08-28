@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://elci-group/kakashi/schemas/equivalence_scores.schema.json",
+  "title": "EquivalenceScores",
+  "description": "Per-dimension equivalence scores (docs/ARCHITECTURE.md §26). Keys are one of the eight labels in EquivalenceDimension::label() (\"Behaviour\", \"Interface\", \"Configuration\", \"Schema\", \"Structure\", \"Operations\", \"Performance\", \"Binary\"). A `null` value means the dimension was never measured and MUST NOT be treated as 0.0 or 1.0 — see EquivalenceScores::composite() in crates/kakashi-core/src/dimension.rs.",
+  "type": "object",
+  "required": ["scores"],
+  "properties": {
+    "scores": {
+      "type": "object",
+      "additionalProperties": {
+        "type": ["number", "null"],
+        "minimum": 0.0,
+        "maximum": 1.0
+      }
+    }
+  },
+  "additionalProperties": false
+}
