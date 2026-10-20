@@ -1,8 +1,8 @@
-mod curly_expand;
-mod commands;
-mod experiment;
-mod output;
-mod theme;
+pub mod curly_expand;
+pub mod commands;
+pub mod experiment;
+pub mod output;
+pub mod theme;
 
 use clap::{Parser, Subcommand};
 use output::OutputFormat;
@@ -11,7 +11,7 @@ use output::OutputFormat;
 /// engine (§1). See `docs/` for the full architectural directive.
 #[derive(Parser)]
 #[command(name = "kakashi", version, about)]
-struct Cli {
+pub struct Cli {
     /// Directory containing (or to contain) the `.kakashi/` state
     /// directory (§34).
     #[arg(long, global = true, default_value = ".")]
@@ -25,7 +25,7 @@ struct Cli {
 }
 
 #[derive(Subcommand)]
-enum Commands {
+pub enum Commands {
     /// Create the `.kakashi/` state directory and an initial manifest.
     Init {
         target: String,

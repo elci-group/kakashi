@@ -1,0 +1,33 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH kakashi-probe 1  "probe " 
+.SH NAME
+kakashi\-probe \- Stage D boundary probing of `program` (§23, §24)
+.SH SYNOPSIS
+\fBkakashi probe\fR [\fB\-\-state\fR] [\fB\-\-timeout\-secs\fR] [\fB\-\-format\fR] [\fB\-h\fR|\fB\-\-help\fR] <\fIPROGRAM\fR> 
+.SH DESCRIPTION
+Stage D boundary probing of `program` (§23, §24)
+.SH OPTIONS
+.TP
+\fB\-\-state\fR \fI<STATE>\fR [default: .]
+Directory containing (or to contain) the `.kakashi/` state directory (§34)
+.TP
+\fB\-\-timeout\-secs\fR \fI<TIMEOUT_SECS>\fR [default: 10]
+
+.TP
+\fB\-\-format\fR \fI<FORMAT>\fR [default: human]
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+human
+.IP \(bu 2
+json
+.RE
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+<\fIPROGRAM\fR>
+

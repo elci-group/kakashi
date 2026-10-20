@@ -1,0 +1,30 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH kakashi-inspect 1  "inspect " 
+.SH NAME
+kakashi\-inspect \- Stage A static discovery of a reference tree
+.SH SYNOPSIS
+\fBkakashi inspect\fR [\fB\-\-state\fR] [\fB\-\-format\fR] [\fB\-h\fR|\fB\-\-help\fR] <\fIPATH\fR> 
+.SH DESCRIPTION
+Stage A static discovery of a reference tree
+.SH OPTIONS
+.TP
+\fB\-\-state\fR \fI<STATE>\fR [default: .]
+Directory containing (or to contain) the `.kakashi/` state directory (§34)
+.TP
+\fB\-\-format\fR \fI<FORMAT>\fR [default: human]
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+human
+.IP \(bu 2
+json
+.RE
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+<\fIPATH\fR>
+

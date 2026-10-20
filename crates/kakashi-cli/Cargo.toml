@@ -30,3 +30,4 @@ form3.workspace = true
 
 [dev-dependencies]
 tempfile.workspace = true
+clap_mangen = "0.2"

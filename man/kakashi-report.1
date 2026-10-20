@@ -1,0 +1,30 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH kakashi-report 1  "report " 
+.SH NAME
+kakashi\-report \- Render the executive/machine\-readable report (§41)
+.SH SYNOPSIS
+\fBkakashi report\fR [\fB\-\-state\fR] [\fB\-\-format\fR] [\fB\-h\fR|\fB\-\-help\fR] [\fIID\fR] 
+.SH DESCRIPTION
+Render the executive/machine\-readable report (§41)
+.SH OPTIONS
+.TP
+\fB\-\-state\fR \fI<STATE>\fR [default: .]
+Directory containing (or to contain) the `.kakashi/` state directory (§34)
+.TP
+\fB\-\-format\fR \fI<FORMAT>\fR [default: human]
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+human
+.IP \(bu 2
+json
+.RE
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+[\fIID\fR]
+

@@ -1,0 +1,33 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH kakashi-init 1  "init " 
+.SH NAME
+kakashi\-init \- Create the `.kakashi/` state directory and an initial manifest
+.SH SYNOPSIS
+\fBkakashi init\fR [\fB\-\-source\fR] [\fB\-\-state\fR] [\fB\-\-format\fR] [\fB\-h\fR|\fB\-\-help\fR] <\fITARGET\fR> 
+.SH DESCRIPTION
+Create the `.kakashi/` state directory and an initial manifest
+.SH OPTIONS
+.TP
+\fB\-\-source\fR \fI<SOURCE>\fR
+
+.TP
+\fB\-\-state\fR \fI<STATE>\fR [default: .]
+Directory containing (or to contain) the `.kakashi/` state directory (§34)
+.TP
+\fB\-\-format\fR \fI<FORMAT>\fR [default: human]
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+human
+.IP \(bu 2
+json
+.RE
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+<\fITARGET\fR>
+

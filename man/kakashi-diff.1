@@ -1,0 +1,33 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH kakashi-diff 1  "diff " 
+.SH NAME
+kakashi\-diff \- Structural (and, if probe records are given, behavioural) differential comparison of two trees (§25)
+.SH SYNOPSIS
+\fBkakashi diff\fR [\fB\-\-state\fR] [\fB\-\-format\fR] [\fB\-h\fR|\fB\-\-help\fR] <\fIREFERENCE\fR> <\fIREPLICA\fR> 
+.SH DESCRIPTION
+Structural (and, if probe records are given, behavioural) differential comparison of two trees (§25)
+.SH OPTIONS
+.TP
+\fB\-\-state\fR \fI<STATE>\fR [default: .]
+Directory containing (or to contain) the `.kakashi/` state directory (§34)
+.TP
+\fB\-\-format\fR \fI<FORMAT>\fR [default: human]
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+human
+.IP \(bu 2
+json
+.RE
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+<\fIREFERENCE\fR>
+
+.TP
+<\fIREPLICA\fR>
+

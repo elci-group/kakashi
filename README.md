@@ -48,3 +48,11 @@ Per Rule 4 (§2) — a claim needs an equivalence report, not just a paragraph �
 - `ReplicationManifest.random_seed` (§45) exists but is always `0` and unused — no subsystem here generates or consumes seeded randomness yet.
 
 Anything reported as `EQUIVALENT` by `kakashi validate` reflects only the dimensions it actually measured (structural file-set diff, plus behavioural diff of two named boundary-probe corpora if you pass `--reference-corpus`/`--replica-corpus`) — not the full eight-dimension equivalence model in §26. Note also that `validate`'s `gate` only fails on a `Critical`-severity finding: a replica missing every source file still scores `High` severity (not `Critical`), so it can pass the gate while the composite score and disposition (`PARTIALLY_EQUIVALENT` or worse) show the degradation instead — see `crates/kakashi-cli/tests/cli.rs::validate_downgrades_disposition_when_structure_differs_but_gate_still_passes`.
+
+## Man pages
+
+`man/` holds one man page per subcommand (`man/kakashi.1`, `man/kakashi-probe.1`, …). They are generated from the real `clap` definitions in `crates/kakashi-cli/src/main.rs` — never hand-edit them; regenerate instead:
+
+```bash
+cargo run -p kakashi-cli --example gen-man
+```

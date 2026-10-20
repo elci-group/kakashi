@@ -1,0 +1,39 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH kakashi-converge 1  "converge " 
+.SH NAME
+kakashi\-converge \- Run one convergence iteration and append it to the ledger (§38, §39)
+.SH SYNOPSIS
+\fBkakashi converge\fR [\fB\-\-reference\-corpus\fR] [\fB\-\-state\fR] [\fB\-\-format\fR] [\fB\-\-replica\-corpus\fR] [\fB\-h\fR|\fB\-\-help\fR] <\fIREFERENCE\fR> <\fIREPLICA\fR> 
+.SH DESCRIPTION
+Run one convergence iteration and append it to the ledger (§38, §39)
+.SH OPTIONS
+.TP
+\fB\-\-reference\-corpus\fR \fI<REFERENCE_CORPUS>\fR
+
+.TP
+\fB\-\-state\fR \fI<STATE>\fR [default: .]
+Directory containing (or to contain) the `.kakashi/` state directory (§34)
+.TP
+\fB\-\-format\fR \fI<FORMAT>\fR [default: human]
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+human
+.IP \(bu 2
+json
+.RE
+.TP
+\fB\-\-replica\-corpus\fR \fI<REPLICA_CORPUS>\fR
+
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+<\fIREFERENCE\fR>
+
+.TP
+<\fIREPLICA\fR>
+

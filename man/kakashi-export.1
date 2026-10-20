@@ -1,0 +1,30 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH kakashi-export 1  "export " 
+.SH NAME
+kakashi\-export \- Copy the evidence graph, models, reports, and differences out of `.kakashi/` into a portable directory
+.SH SYNOPSIS
+\fBkakashi export\fR [\fB\-\-state\fR] [\fB\-\-format\fR] [\fB\-h\fR|\fB\-\-help\fR] <\fIOUT_DIR\fR> 
+.SH DESCRIPTION
+Copy the evidence graph, models, reports, and differences out of `.kakashi/` into a portable directory
+.SH OPTIONS
+.TP
+\fB\-\-state\fR \fI<STATE>\fR [default: .]
+Directory containing (or to contain) the `.kakashi/` state directory (§34)
+.TP
+\fB\-\-format\fR \fI<FORMAT>\fR [default: human]
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+human
+.IP \(bu 2
+json
+.RE
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+<\fIOUT_DIR\fR>
+

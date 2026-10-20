@@ -1,0 +1,33 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH kakashi-characterise 1  "characterise " 
+.SH NAME
+kakashi\-characterise \- Stage A + Stage B: static discovery plus CLI surface extraction
+.SH SYNOPSIS
+\fBkakashi characterise\fR [\fB\-\-program\fR] [\fB\-\-state\fR] [\fB\-\-format\fR] [\fB\-h\fR|\fB\-\-help\fR] <\fIPATH\fR> 
+.SH DESCRIPTION
+Stage A + Stage B: static discovery plus CLI surface extraction
+.SH OPTIONS
+.TP
+\fB\-\-program\fR \fI<PROGRAM>\fR
+Executable to run with `\-\-help` to extract its CLI surface
+.TP
+\fB\-\-state\fR \fI<STATE>\fR [default: .]
+Directory containing (or to contain) the `.kakashi/` state directory (§34)
+.TP
+\fB\-\-format\fR \fI<FORMAT>\fR [default: human]
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+human
+.IP \(bu 2
+json
+.RE
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+<\fIPATH\fR>
+

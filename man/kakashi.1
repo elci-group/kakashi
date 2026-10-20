@@ -1,0 +1,81 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH kakashi 1  "kakashi 0.1.0" 
+.SH NAME
+kakashi \- Kakashi — the ELCI deterministic system replication & equivalence engine (§1). See `docs/` for the full architectural directive
+.SH SYNOPSIS
+\fBkakashi\fR [\fB\-\-state\fR] [\fB\-\-format\fR] [\fB\-h\fR|\fB\-\-help\fR] [\fB\-V\fR|\fB\-\-version\fR] <\fIsubcommands\fR>
+.SH DESCRIPTION
+Kakashi — the ELCI deterministic system replication & equivalence engine (§1). See `docs/` for the full architectural directive
+.SH OPTIONS
+.TP
+\fB\-\-state\fR \fI<STATE>\fR [default: .]
+Directory containing (or to contain) the `.kakashi/` state directory (§34)
+.TP
+\fB\-\-format\fR \fI<FORMAT>\fR [default: human]
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+human
+.IP \(bu 2
+json
+.RE
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH SUBCOMMANDS
+.TP
+kakashi\-init(1)
+Create the `.kakashi/` state directory and an initial manifest
+.TP
+kakashi\-inspect(1)
+Stage A static discovery of a reference tree
+.TP
+kakashi\-fingerprint(1)
+Compute deterministic fingerprints for a tree (§22)
+.TP
+kakashi\-characterise(1)
+Stage A + Stage B: static discovery plus CLI surface extraction
+.TP
+kakashi\-observe(1)
+Run one confined invocation of `program` and record it as an experiment (§6, §13)
+.TP
+kakashi\-probe(1)
+Stage D boundary probing of `program` (§23, §24)
+.TP
+kakashi\-model(1)
+Assemble a system model from previously recorded discovery, fingerprint, and ELCI adapter health (§35, §36)
+.TP
+kakashi\-replicate(1)
+Produce a replication brief (§37, §46) — evidence for the next proposal step, not a replica
+.TP
+kakashi\-diff(1)
+Structural (and, if probe records are given, behavioural) differential comparison of two trees (§25)
+.TP
+kakashi\-validate(1)
+Score measured equivalence dimensions and report a gate PASS/FAIL disposition (§26, §41)
+.TP
+kakashi\-converge(1)
+Run one convergence iteration and append it to the ledger (§38, §39)
+.TP
+kakashi\-report(1)
+Render the executive/machine\-readable report (§41)
+.TP
+kakashi\-replay(1)
+Re\-run a recorded experiment from its manifest and check for reproducibility (§32)
+.TP
+kakashi\-export(1)
+Copy the evidence graph, models, reports, and differences out of `.kakashi/` into a portable directory
+.TP
+kakashi\-status(1)
+Summarise manifest, evidence counts, and ELCI adapter health
+.TP
+kakashi\-help(1)
+Print this message or the help of the given subcommand(s)
+.SH VERSION
+v0.1.0

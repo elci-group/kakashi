@@ -1,0 +1,42 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH kakashi-observe 1  "observe " 
+.SH NAME
+kakashi\-observe \- Run one confined invocation of `program` and record it as an experiment (§6, §13)
+.SH SYNOPSIS
+\fBkakashi observe\fR [\fB\-\-state\fR] [\fB\-\-timeout\-secs\fR] [\fB\-\-format\fR] [\fB\-\-watch\-dir\fR] [\fB\-\-label\fR] [\fB\-h\fR|\fB\-\-help\fR] <\fIPROGRAM\fR> [\fIARGS\fR] 
+.SH DESCRIPTION
+Run one confined invocation of `program` and record it as an experiment (§6, §13)
+.SH OPTIONS
+.TP
+\fB\-\-state\fR \fI<STATE>\fR [default: .]
+Directory containing (or to contain) the `.kakashi/` state directory (§34)
+.TP
+\fB\-\-timeout\-secs\fR \fI<TIMEOUT_SECS>\fR [default: 10]
+
+.TP
+\fB\-\-format\fR \fI<FORMAT>\fR [default: human]
+
+.br
+\fIPossible values:\fR
+.RS 14
+.IP \(bu 2
+human
+.IP \(bu 2
+json
+.RE
+.TP
+\fB\-\-watch\-dir\fR \fI<WATCH_DIR>\fR
+
+.TP
+\fB\-\-label\fR \fI<LABEL>\fR
+
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+<\fIPROGRAM\fR>
+
+.TP
+[\fIARGS\fR]
+
